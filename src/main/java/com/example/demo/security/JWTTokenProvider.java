@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.entity.User;
+import com.example.demo.payload.request.entity.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
