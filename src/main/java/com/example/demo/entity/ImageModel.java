@@ -1,4 +1,4 @@
-package com.example.demo.payload.request.entity;
+package com.example.demo.entity;
 
 import lombok.Data;
 import net.minidev.json.annotate.JsonIgnore;

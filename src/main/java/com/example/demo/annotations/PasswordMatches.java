@@ -17,4 +17,3 @@ public @interface PasswordMatches {
 
     Class<? extends Payload>[] payload() default {};
 }
-
