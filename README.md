@@ -1,4 +1,4 @@
-# SocialNetAPI
+# SocialNetAPI![alt text](photo_SocialNet.jpg)
 
 SocialNetAPI is a project that leverages various technologies to develop a RESTful API for a social networking platform. This API enables users to create an account, post content, write comments, like posts, and interact with other users.
 
@@ -123,3 +123,6 @@ Make sure PostgreSQL is running and listening on port 5432 on your computer if n
 Now your project should be ready to work with the configured PostgreSQL database. Enjoy using it!
 
 Access the API at  http://localhost:8080/api
+
+# UML Data Base
+![alt text](UML_DB.jpg)
