@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>instazoo</name>
+	<name>SocialNetAPI</name>
 	<description>Software to Share Images</description>
 
 	<properties>
