@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import lombok.Data;
 import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -15,7 +16,7 @@ public class ImageModel {
     @Column(nullable = false)
     private String name;
     @Lob
-    @Column(columnDefinition = "bigint")
+    @Type(type = "org.hibernate.type.ImageType")
     private byte[] imageBytes;
 
     @JsonIgnore
