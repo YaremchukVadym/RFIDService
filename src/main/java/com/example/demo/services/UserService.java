@@ -32,7 +32,7 @@ public class UserService {
     public User createUser(SignupRequest userIn) {
         User user = new User();
         user.setEmail(userIn.getEmail());
-        user.setName(userIn.getFirstname());
+        user.setFirstname(userIn.getFirstname());
         user.setLastname(userIn.getLastname());
         user.setUsername(userIn.getUsername());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
@@ -49,7 +49,7 @@ public class UserService {
 
     public User updateUser(UserDTO userDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
-        user.setName(userDTO.getFirstname());
+        user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
         user.setBio(userDTO.getBio());
 

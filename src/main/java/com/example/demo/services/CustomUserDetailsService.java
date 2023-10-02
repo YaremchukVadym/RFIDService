@@ -25,14 +25,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findUsersByEmail(username)
+        User user = userRepository.findUserByEmail(username)
                 .orElseThrow(()->new UsernameNotFoundException("Username not found with username: " + username));
 
         return build(user);
     }
 
     public User loadUserById(Long id){
-        return userRepository.findUsersById(id).orElse(null);
+        return userRepository.findUserById(id).orElse(null);
     }
 
     public static User build(User user) {
