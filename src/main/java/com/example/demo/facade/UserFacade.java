@@ -12,6 +12,7 @@ public class UserFacade {
         userDTO.setFirstname(user.getName());
         userDTO.setLastname(user.getLastname());
         userDTO.setBio(user.getBio());
+        userDTO.setUsername(user.getUsername());
         return userDTO;
     }
 }
