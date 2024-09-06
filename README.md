@@ -1,5 +1,3 @@
-
-
 # IoT RFID Tracking and Identification Service
 ![Reader Prototype - Assembly](wImages/photo_1.png)
 
@@ -42,7 +40,7 @@ For a full explanation of the project, including design decisions, implementatio
 ## Database Relationships
 This section describes the relationships between the tables in the **PostgreSQL** database used by the service.
 
-![Database Relationships](wImages/photo_2.png)
+![Database Relationships](wImages/photo_2.jpg)
 
 ---
 
