@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>RFIDService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SocialNetAPI</name>
+	<name>RFIDApplication</name>
 	<description>Software to Share Images</description>
 
 	<properties>
@@ -34,7 +34,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.30</version>
+			<scope>provided</scope>
 		</dependency>
 		<!--Security-->
 		<dependency>

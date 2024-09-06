@@ -24,15 +24,15 @@ public class ImageUploadController {
     public ResponseEntity<MessageResponse> uploadImageToUser(@RequestParam("file") MultipartFile file,
                                                              Principal principal) throws IOException {
         imageUploadService.uploadImageToUser(file, principal);
-        return ResponseEntity.ok(new MessageResponse("Image Uploaded Successfully"));
+        return ResponseEntity.ok(new MessageResponse("Image for user Uploaded Successfully"));
     }
 
-    @PostMapping("/{postId}/upload")
-    public ResponseEntity<MessageResponse> uploadImageToPost(@PathVariable("postId") String postId,
+    @PostMapping("/{itemId}/upload")
+    public ResponseEntity<MessageResponse> uploadImageToPost(@PathVariable("itemId") String itemId,
                                                              @RequestParam("file") MultipartFile file,
                                                              Principal principal) throws IOException {
-        imageUploadService.uploadImageToPost(file, principal, Long.parseLong(postId));
-        return ResponseEntity.ok(new MessageResponse("Image Uploaded Successfully"));
+        imageUploadService.uploadImageToItem(file, principal, Long.parseLong(itemId));
+        return ResponseEntity.ok(new MessageResponse("Image for item Uploaded Successfully"));
     }
 
     @GetMapping("/profileImage")
@@ -41,10 +41,10 @@ public class ImageUploadController {
         return new ResponseEntity<>(userImage, HttpStatus.OK);
     }
 
-    @GetMapping("/{postId}/image")
-    public ResponseEntity<ImageModel> getImageToPost(@PathVariable("postId") String postId) {
-        ImageModel postImage = imageUploadService.getImageToPost(Long.parseLong(postId));
-        return new ResponseEntity<>(postImage, HttpStatus.OK);
+    @GetMapping("/{itemId}/image")
+    public ResponseEntity<ImageModel> getImageToPost(@PathVariable("itemId") String itemId) {
+        ImageModel itemImage = imageUploadService.getImageToItem(Long.parseLong(itemId));
+        return new ResponseEntity<>(itemImage, HttpStatus.OK);
     }
 
 

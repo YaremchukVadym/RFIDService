@@ -28,4 +28,16 @@ public class SignupRequest {
     private String password;
 
     private String confirmPassword;
+
+    @NotEmpty(message = "Phone number is required")
+    private String phoneNumber;
+
+    @NotEmpty(message = "RF Reader ID Token is required")
+    private String rfReaderIdToken;
+
+    @NotEmpty(message = "Position is required")
+    private String position;
+
+    @NotEmpty(message = "Responsibility is required")
+    private String responsibility;
 }

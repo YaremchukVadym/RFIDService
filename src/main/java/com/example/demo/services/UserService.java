@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-
 import com.example.demo.dto.UserDTO;
 import com.example.demo.exceptions.UserExistExceptions;
 import com.example.demo.payload.request.SignupRequest;
@@ -36,6 +35,10 @@ public class UserService {
         user.setLastname(userIn.getLastname());
         user.setUsername(userIn.getUsername());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
+        user.setPhoneNumber(userIn.getPhoneNumber());
+        user.setRfReaderIdToken(userIn.getRfReaderIdToken());
+        user.setPosition(userIn.getPosition());
+        user.setResponsibility(userIn.getResponsibility());
         user.getRoles().add(ERole.ROLE_USER);
 
         try {
@@ -43,7 +46,7 @@ public class UserService {
             return userRepository.save(user);
         } catch (Exception e) {
             LOG.error("Error during registration. {}", e.getMessage());
-            throw new UserExistExceptions("The user " + user.getUsername() + " already exist. Please check credentials");
+            throw new UserExistExceptions("The user " + user.getUsername() + " already exists. Please check credentials");
         }
     }
 
@@ -51,7 +54,11 @@ public class UserService {
         User user = getUserByPrincipal(principal);
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
-        user.setBio(userDTO.getBio());
+        user.setCharacteristic(userDTO.getCharacteristic());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setRfReaderIdToken(userDTO.getRfReaderIdToken());
+        user.setPosition(userDTO.getPosition());
+        user.setResponsibility(userDTO.getResponsibility());
 
         return userRepository.save(user);
     }
@@ -66,7 +73,7 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
     }
 
-    public User getUserById(Long id ) {
-        return userRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

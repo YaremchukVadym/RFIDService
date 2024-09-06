@@ -1,128 +1,131 @@
-# SocialNetAPI![alt text](photo_SocialNet.jpg)
 
-SocialNetAPI is a project that leverages various technologies to develop a RESTful API for a social networking platform. This API enables users to create an account, post content, write comments, like posts, and interact with other users.
 
-## Technologies Used
+# IoT RFID Tracking and Identification Service
+![Reader Prototype - Assembly](wImages/photo_1.png)
 
-- **Spring Boot**: This project is built using Spring Boot, simplifying configuration and deployment.
+This project is a comprehensive IoT solution for tracking and identifying objects using **Radio-Frequency Identification (RFID)** technology. The service enables efficient object management by utilizing **RFID tags** and providing real-time tracking data over a **REST API**.
 
-- **Spring Data JPA**: It facilitates easy database access and data management.
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Technology Stack](#technology-stack)
+3. [Detailed Project Description](#detailed-project-description)
+4. [Database Relationships](#database-relationships)
+5. [Package and Class Structure](#package-and-class-structure)
+6. [Spring Security and JSON Web Token](#spring-security-and-json-web-token)
+7. [Prototype of RFID Reader based on ESP8266](#prototype-of-rfid-reader-based-on-esp8266)
+8. [How to Use](#how-to-use)
 
-- **Spring Data REST**: Automatically generates RESTful endpoints for domain objects.
+---
 
-- **Spring Security**: Ensures the security of the application, including authentication and authorization.
+## Project Overview
+This project is an IoT service designed to track and identify objects using **RFID technology**. By implementing RFID tags for objects and integrating with a backend service, this solution allows for real-time data collection, monitoring, and management of various assets. The service provides a REST API for interaction, offering secure endpoints for managing data related to tracked objects.
 
-- **Project Lombok**: Simplifies Java code with features like automatic generation of getters, setters, and more.
+---
 
-- **Gson**: Used for handling JSON data, including serialization and deserialization.
+## Technology Stack
+- **Java, Spring Boot**: Backend development.
+- **PostgreSQL**: Database management.
+- **NodeMCU v3, RFID-RC522**: Hardware components for the RFID reader.
+- **JWT, Spring Security**: Security and authentication.
+- **Arduino IDE**: For programming the RFID reader.
 
-- **JSON Web Token (JWT)**: Enables the creation and verification of JWT tokens for user authentication.
+---
 
-- **PostgreSQL**: The chosen database for storing application data.
+
+## Detailed Project Description
+For a full explanation of the project, including design decisions, implementation details, and testing, refer to the **Explanatory note**.
+
+**Explanatory note**: [View Document](https://drive.google.com/file/d/1Qwzny58OMBryePvWp6ZP7bCAOKb-hp4t/view)
+
+---
+
+## Database Relationships
+This section describes the relationships between the tables in the **PostgreSQL** database used by the service.
+
+![Database Relationships](wImages/photo_2.png)
+
+---
+
+## Package and Class Structure
+
+The service consists of several key components:
+
+- **DTO**: Objects used for transferring data between different layers of the service.
+- **Entity**: Objects representing data in the database.
+- **Repository**: Interfaces for accessing the database.
+- **Service**: The business logic of the application.
+- **Facade**: A facade pattern to simplify interaction with other components.
+- **Security**: Application security, including classes that provide configuration and handle security features, particularly for working with JWT tokens.
+- **Web**: REST controllers for handling HTTP requests.
+- **Exception**: Exception handling that ensures various types of errors are managed during the execution of the program logic.
+- **Validation**: Data validation, ensuring correctness and accuracy.
+
+---
 
 ## API Endpoints
 
-### Authorization
+The service includes several controllers to handle web requests using Spring Boot. Here are the key API endpoints:
 
-- **Sign In User**
-    - `POST /api/auth/signin` - Sign in a user.
+### AuthController:
+- `POST /api/auth/signin` - User authentication, returns JWT token.
+- `POST /api/auth/signup` - User registration.
 
-- **Register User**
-    - `POST /api/auth/signup` - Register a new user.
+### ImageUploadController:
+- `POST /api/image/upload` - Upload image for the current user.
+- `POST /api/image/{itemId}/upload` - Upload image for a specific item.
+- `GET /api/image/profileImage` - Retrieve the profile image of the current user.
+- `GET /api/image/{itemId}/image` - Retrieve the image attached to a specific item.
 
-### User
+### ItemController:
+- `POST /api/item/create` - Create a new item.
+- `POST /api/item/update` - Update item details.
+- `POST /api/item/{rfTag}/update` - Update item details using an RFID tag.
+- `GET /api/item/all` - Retrieve a list of all items.
+- `GET /api/item/user/items` - Retrieve a list of all items for the current user.
+- `POST /api/item/{itemId}/delete` - Delete an item.
 
-- **Currently Logged In User**
-    - `GET /api/user/` - Retrieve information about the currently logged-in user.
+### RemarkController:
+- `POST /api/remark/{itemId}/create` - Create a remark for an item.
+- `GET /api/remark/{itemId}/all` - Retrieve all remarks for an item.
+- `POST /api/remark/{remarkId}/delete` - Delete a remark.
 
-- **User Data**
-    - `GET /api/user/:userId` - Retrieve user data by user ID.
+### UserController:
+- `GET /api/user/` - Retrieve current user details.
+- `GET /api/user/{userId}` - Retrieve user profile by ID.
+- `POST /api/user/update` - Update user profile.
 
-- **Update User**
-    - `POST /api/auth/update` - Update user information.
+---
 
-- **List of Users**
-    - `GET /api/user/search/:username` - Get a list of users by username.
 
-### Post
+## Spring Security and JSON Web Token
+The project uses **Spring Security** in combination with **JSON Web Token (JWT)** to ensure secure authentication and authorization of users. JWT tokens are used to securely verify user identity across different API endpoints.
 
-- **Create New Post**
-    - `POST /api/post/create` - Create a new post.
+![Spring Security and JWT](wImages/photo_7.png)
 
-- **Delete Post**
-    - `POST /api/post/:postId/delete` - Delete a post by post ID.
+---
+## Prototype of RFID Reader based on ESP8266
 
-- **All Posts**
-    - `GET /api/post/all` - Retrieve all posts.
+**Radio-Frequency Identification (RFID)** is a technology that uses electromagnetic fields to automatically identify and track tags attached to objects. These tags contain electronically stored information that can be read by RFID readers. RFID systems are widely used in asset tracking, inventory management, and various other applications.
 
-- **User Posts**
-    - `GET /api/post/user/posts` - Retrieve all posts by a user.
+![RFID](wImages/photo_6.png)
 
-### Comment
+This project includes a prototype of an RFID reader built using the **NodeMCU v3 (ESP8266)** microcontroller and the **RFID-RC522** module. The reader communicates with the server over **Wi-Fi** to send object identification data.
 
-- **Create Comment to Post**
-    - `POST /api/comment/:postId/create` - Create a comment for a post.
+![Reader Prototype - Assembly](wImages/photo_4.png)
+![Reader Prototype - Connection Diagram](wImages/photo_5.png)
 
-- **All Comments to Post**
-    - `GET /api/comment/:postId/all`
-    - Retrieve all comments for a post.
+The source code for the **ESP8266** microcontroller, which handles RFID tag reading and data transmission, is available below.
 
-- **Delete Comment**
-    - `POST /api/comment/:commentId/delete` - Delete a comment by comment ID.
+**Code for ESP**: [ESP8266_RFID.ino](ESP8266_RFID.ino)
 
-### Image
+**Link to an example of the RF reader's work**: [Video](https://youtu.be/KGE6DyLrMjc)
 
-- **Upload Image to User**
-    - `POST /api/image/upload` - Upload an image to a user's profile.
+---
 
-- **Upload Image to Post**
-    - `POST /api/image/:postId/upload` - Upload an image to a post.
+## How to Use
+1. Deploy the backend using Spring Boot and connect to the PostgreSQL database.
+2. Set up the RFID reader with NodeMCU v3 and connect it to the backend via Wi-Fi.
+3. Use the provided REST API for operations such as tracking, identification, and management of objects.
+4. Secure your API access with JWT-based authentication.
 
-- **Profile Image**
-    - `GET /api/image/profileImage` - Retrieve the profile image of a user.
-
-- **Image to Post**
-    - `GET /api/image/:postId/image` - Retrieve an image associated with a post.
-
-# Project Setup
-
-To successfully run this project, follow these steps:
-
-#### Step 1: Create the Database
-
-1. Open PgAdmin or a PostgreSQL management tool.
-2. Create a new database with the name you have defined (usually `yourDataBase`).
-
-#### Step 2: Configure `application.properties`
-
-In the project's root directory, find the `application.properties` file and configure it as follows:
-
-```properties
-spring.datasource.driverClassName=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5432/yourDataBase
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-
-# Create or update tables
-spring.jpa.hibernate.ddl-auto=create
-
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.properties.hibernate.show_sql=true
-```
-
-#### Step 3: Run the Project 
-Run the project from your integrated development environment (IDE) or use Maven to run it with the following command:
-
-shell:
-mvn spring-boot:run
-
-The project should start successfully, and you can interact with it through the specified API endpoints.
-
-Make sure PostgreSQL is running and listening on port 5432 on your computer if necessary.
-
-Now your project should be ready to work with the configured PostgreSQL database. Enjoy using it!
-
-Access the API at  http://localhost:8080/api
-
-# UML Data Base
-![alt text](UML_DB.jpg)
+---

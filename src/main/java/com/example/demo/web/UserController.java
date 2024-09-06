@@ -18,7 +18,6 @@ import java.security.Principal;
 @RestController
 @RequestMapping("api/user")
 @CrossOrigin
-
 public class UserController {
 
     @Autowired
@@ -55,6 +54,4 @@ public class UserController {
         UserDTO userUpdated = userFacade.userToUserDTO(user);
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
     }
-
-
 }

@@ -25,8 +25,16 @@ public class User implements UserDetails {
     private String lastname;
     @Column(unique = true)
     private String email;
+    @Column(unique = true)
+    private String phoneNumber;
+    @Column(nullable = false)
+    private String position;
+    @Column(nullable = false)
+    private String rfReaderIdToken;
+    @Column(nullable = false)
+    private String responsibility;
     @Column(columnDefinition = "text")
-    private String bio;
+    private String characteristic;
     @Column(length = 3000)
     private String password;
 
@@ -36,7 +44,7 @@ public class User implements UserDetails {
     private Set<ERole> roles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
@@ -64,11 +72,6 @@ public class User implements UserDetails {
     protected void onCreate() {
         this.createdDate = LocalDateTime.now();
     }
-
-    /**
-     * SECURITY
-     */
-
 
 
     @Override

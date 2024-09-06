@@ -22,7 +22,7 @@ public class ImageModel {
     @JsonIgnore
     private Long userId;
     @JsonIgnore
-    private Long postId;
+    private Long itemId;
 
     public ImageModel() {
     }

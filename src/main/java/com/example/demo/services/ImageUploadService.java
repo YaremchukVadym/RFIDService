@@ -1,11 +1,13 @@
 package com.example.demo.services;
 
 import com.example.demo.entity.ImageModel;
-import com.example.demo.entity.Post;
+import com.example.demo.entity.Item;
+
 import com.example.demo.entity.User;
 import com.example.demo.exceptions.ImageNotFoundException;
 import com.example.demo.repository.ImageRepository;
-import com.example.demo.repository.PostRepository;
+import com.example.demo.repository.ItemRepository;
+
 import com.example.demo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +31,13 @@ public class ImageUploadService {
     public static final Logger LOG = LoggerFactory.getLogger(ImageUploadService.class);
     private ImageRepository imageRepository;
     private UserRepository userRepository;
-    private PostRepository postRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    public ImageUploadService(ImageRepository imageRepository, UserRepository userRepository, PostRepository postRepository) {
+    public ImageUploadService(ImageRepository imageRepository, UserRepository userRepository, ItemRepository itemRepository) {
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
-        this.postRepository = postRepository;
+        this.itemRepository = itemRepository;
     }
 
 
@@ -55,19 +57,19 @@ public class ImageUploadService {
         return imageRepository.save(imageModel);
     }
 
-    public ImageModel uploadImageToPost(MultipartFile file, Principal principal, Long postId) throws IOException {
+    public ImageModel uploadImageToItem(MultipartFile file, Principal principal, Long itemId) throws IOException {
         User user = getUserByPrincipal(principal);
-        Post post = user.getPosts()
+        Item item = user.getItems()
                 .stream()
-                .filter(p -> p.getId().equals(postId))
+                .filter(p -> p.getId().equals(itemId))
                 .collect(toSinglePostCollector());
 
         ImageModel imageModel = new ImageModel();
-        imageModel.setPostId(post.getId());
+        imageModel.setItemId(item.getId());
         imageModel.setImageBytes(file.getBytes());
         imageModel.setImageBytes(compressBytes(file.getBytes()));
         imageModel.setName(file.getOriginalFilename());
-        LOG.info("Uploading image to Post {}", post.getId());
+        LOG.info("Uploading image to Item {}", item.getId());
 
         return imageRepository.save(imageModel);
 
@@ -83,9 +85,9 @@ public class ImageUploadService {
         return imageModel;
     }
 
-    public ImageModel getImageToPost(Long postId) {
-        ImageModel imageModel = imageRepository.findByPostId(postId)
-                .orElseThrow(() -> new ImageNotFoundException("Cannot find image to Post: " + postId));
+    public ImageModel getImageToItem(Long itemId) {
+        ImageModel imageModel = imageRepository.findByItemId(itemId)
+                .orElseThrow(() -> new ImageNotFoundException("Cannot find image to Item: " + itemId));
         if (!ObjectUtils.isEmpty(imageModel)) {
             imageModel.setImageBytes(decompressBytes(imageModel.getImageBytes()));
         }
